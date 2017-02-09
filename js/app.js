@@ -7,10 +7,6 @@
 
     searchButton.addEventListener("click", function (event) {
         event.preventDefault();
-        document.getElementsByClassName('desc')[0].style.display = 'none';
-        if (moviesList.style.display == 'none') {
-            moviesList.style.display == 'block';
-        }
         var searchInput = document.getElementById('search').value;
         var yearInput = document.getElementById('year').value;
         // What we want ombdb API to return
@@ -29,7 +25,7 @@
                 // Loop through and displays the movies from the response
                 var moviesHTML = "";
                 $.each(data.Search, function (i, item) {
-                    moviesHTML += '<li><div class="poster-wrap">';
+                    moviesHTML += '<a href=http://www.imdb.com/title/' + item.imdbID + '><li><div class="poster-wrap">';
                     if (item.Poster != "N/A") {
                         moviesHTML += '<img class="movie-poster" src="' + item.Poster + '"></div>';
                     } else {
@@ -37,7 +33,7 @@
                         moviesHTML += '<i class="material-icons poster-placeholder">crop_original</i>';
                     }
                     moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
-                    moviesHTML += '<span class="movie-year">' + item.Year + '</span></li>';
+                    moviesHTML += '<span class="movie-year">' + item.Year + '</span></li></a>';
                 });
                 console.log(moviesHTML);
                 moviesList.innerHTML = moviesHTML;
