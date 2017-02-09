@@ -5,24 +5,6 @@
     var moviesList = document.getElementById('movies');
     var ombdbAPI = "http://www.omdbapi.com/?";
 
-    // Success callback
-    function success(data) {
-        if (data.Response == "True") {
-            // Loop through and displays the movies from the response
-            var moviesHTML = "";
-            $.each(data.Search, function (i, item) {
-                moviesHTML += '<li><div class="poster-wrap">';
-                if (item.Poster != "N/A") {
-                    moviesHTML += '<img class="movie-poster" src="' + item.Poster + '"></div>';
-                }
-                moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
-                moviesHTML += '<span class="movie-year">' + item.Year + '</span></li>';
-            });
-            console.log(moviesHTML);
-            moviesList.innerHTML = moviesHTML;
-        }
-    };
-
     searchButton.addEventListener("click", function (event) {
         event.preventDefault();
         document.getElementsByClassName('desc')[0].style.display = 'none';
@@ -40,6 +22,41 @@
             page: "1"
         }
         console.log(omdbRequestData);
+
+        // Success callback
+        function success(data) {
+            if (data.Response == "True") {
+                // Loop through and displays the movies from the response
+                var moviesHTML = "";
+                $.each(data.Search, function (i, item) {
+                    moviesHTML += '<li><div class="poster-wrap">';
+                    if (item.Poster != "N/A") {
+                        moviesHTML += '<img class="movie-poster" src="' + item.Poster + '"></div>';
+                    } else {
+                        moviesHTML += '<i class="material-icons poster-placeholder">crop_original</i>';
+                    }
+                    moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
+                    moviesHTML += '<span class="movie-year">' + item.Year + '</span></li>';
+                });
+                console.log(moviesHTML);
+                moviesList.innerHTML = moviesHTML;
+            }
+
+            if (data.Response == "False") {
+                var noMovieData = "";
+                noMovieData += '<li class="no-movies">';
+                noMovieData += '<i class="material-icons icon-help">help_outline</i>';
+                noMovieData += 'No movies found that match: ';
+                noMovieData += searchInput;
+                noMovieData += '</li>';
+                /*<li class='no-movies'>
+                <i class='material-icons icon-help'>help_outline</i>No movies found that match: [search form value].
+              </li> 
+               */
+              console.log(noMovieData);
+              moviesList.innerHTML = noMovieData;
+            }
+        };
         $.getJSON(ombdbAPI, omdbRequestData, success);
     }); // end submit click
 
