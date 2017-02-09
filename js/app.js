@@ -33,6 +33,7 @@
                     if (item.Poster != "N/A") {
                         moviesHTML += '<img class="movie-poster" src="' + item.Poster + '"></div>';
                     } else {
+                        // Display placeholder icon when API does not return poster data
                         moviesHTML += '<i class="material-icons poster-placeholder">crop_original</i>';
                     }
                     moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
@@ -42,6 +43,7 @@
                 moviesList.innerHTML = moviesHTML;
             }
 
+            // Let user know when search returns no movie data
             if (data.Response == "False") {
                 var noMovieData = "";
                 noMovieData += '<li class="no-movies">';
@@ -49,10 +51,6 @@
                 noMovieData += 'No movies found that match: ';
                 noMovieData += searchInput;
                 noMovieData += '</li>';
-                /*<li class='no-movies'>
-                <i class='material-icons icon-help'>help_outline</i>No movies found that match: [search form value].
-              </li> 
-               */
               console.log(noMovieData);
               moviesList.innerHTML = noMovieData;
             }
