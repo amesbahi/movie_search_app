@@ -6,6 +6,7 @@
     var ombdbAPI = "http://www.omdbapi.com/?";
     var mainContent = document.getElementsByClassName('main-content')[0];
 
+    // Clicking on the search button sends a GET request to the omdb API
     searchButton.addEventListener("click", function (event) {
         event.preventDefault();
         var searchInput = document.getElementById('search').value;
@@ -15,15 +16,12 @@
             s: searchInput,
             y: yearInput,
             r: "json",
-            plot: "full",
-            page: "1"
         }
-        console.log(omdbRequestData);
 
         // Success callback
         function success(data) {
             if (data.Response == "True") {
-                // Loop through and displays the movies from the response
+                // Loop through and display the movies from the response
                 var moviesHTML = "";
                 $.each(data.Search, function (i, item) {
                     moviesHTML += '<li><div class="poster-wrap">';
@@ -36,20 +34,17 @@
                     moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
                     moviesHTML += '<span class="movie-year">' + item.Year + '</span></li>';
                 });
-                console.log(moviesHTML);
                 moviesList.innerHTML = moviesHTML;
             }
 
             // Let user know when search returns no movie data
             if (data.Response == "False") {
-                document.getElementById('movies').style.display = 'none';
                 var noMovieData = "";
                 noMovieData += '<li class="no-movies">';
                 noMovieData += '<i class="material-icons icon-help">help_outline</i>';
                 noMovieData += 'No movies found that match: ';
                 noMovieData += searchInput;
                 noMovieData += '</li>';
-              console.log(noMovieData);
               mainContent.innerHTML = noMovieData;
             }
         };
