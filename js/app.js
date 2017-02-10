@@ -25,15 +25,15 @@
                 // Loop through and displays the movies from the response
                 var moviesHTML = "";
                 $.each(data.Search, function (i, item) {
-                    moviesHTML += '<a href=http://www.imdb.com/title/' + item.imdbID + '><li><div class="poster-wrap">';
+                    moviesHTML += '<li><div class="poster-wrap">';
                     if (item.Poster != "N/A") {
-                        moviesHTML += '<img class="movie-poster" src="' + item.Poster + '"></div>';
+                        moviesHTML += '<a href=http://www.imdb.com/title/' + item.imdbID + '><img class="movie-poster" src="' + item.Poster + '"></a></div>';
                     } else {
                         // Display placeholder icon when API does not return poster data
-                        moviesHTML += '<i class="material-icons poster-placeholder">crop_original</i>';
+                        moviesHTML += '<i class="material-icons poster-placeholder">crop_original</i></div>';
                     }
                     moviesHTML += '<span class="movie-title">' + item.Title + '</span>';
-                    moviesHTML += '<span class="movie-year">' + item.Year + '</span></li></a>';
+                    moviesHTML += '<span class="movie-year">' + item.Year + '</span></li>';
                 });
                 console.log(moviesHTML);
                 moviesList.innerHTML = moviesHTML;
