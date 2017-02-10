@@ -4,6 +4,7 @@
     var searchButton = document.getElementById('submit');
     var moviesList = document.getElementById('movies');
     var ombdbAPI = "http://www.omdbapi.com/?";
+    var mainContent = document.getElementsByClassName('main-content')[0];
 
     searchButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -41,6 +42,7 @@
 
             // Let user know when search returns no movie data
             if (data.Response == "False") {
+                document.getElementById('movies').style.display = 'none';
                 var noMovieData = "";
                 noMovieData += '<li class="no-movies">';
                 noMovieData += '<i class="material-icons icon-help">help_outline</i>';
@@ -48,7 +50,7 @@
                 noMovieData += searchInput;
                 noMovieData += '</li>';
               console.log(noMovieData);
-              moviesList.innerHTML = noMovieData;
+              mainContent.innerHTML = noMovieData;
             }
         };
         $.getJSON(ombdbAPI, omdbRequestData, success);
