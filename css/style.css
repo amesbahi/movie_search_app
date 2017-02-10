@@ -108,6 +108,7 @@ button {
   margin-top: 50px;
   text-align: center;
   font-size: 1.25em;
+  list-style: none;
 }
 
 .movie-list li {
